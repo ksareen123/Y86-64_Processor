@@ -1,0 +1,17 @@
+main:
+    irmovq 0xAAAA, %rax
+    irmovq 0x5555, %rcx
+    irmovq 0xFFFF, %rbx
+    irmovq 0x1234, %rdx
+    xorq %rbx, %rax
+    andq %rcx, %rax
+    xorq %rbx, %rax
+    addq %rcx, %rax
+    rmmovq %rcx, (%rdx)
+    xorq %rbx, %rax
+    subq %rcx, %rax
+    xorq %rbx, %rax
+    andq %rcx, %rax
+    irmovq 0x321, %r8
+    rmmovq %rax, (%r8)
+    mrmovq (%rdx), %rbp

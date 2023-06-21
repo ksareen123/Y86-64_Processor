@@ -1,0 +1,19 @@
+        .pos 0
+        irmovq stack, %rsp      # Set up stack pointer
+main:
+        irmovq $5, %rsi
+        irmovq $8, %rdx
+        xorq %rdx, %rsi
+        jge loop_1
+loop_1:
+        andq %rsi, %rdx
+        irmovq $4,%rcx
+        andq %rdx, %rcx
+        subq %rsi, %rdx
+        jl loop_2
+loop_2: 
+        xorq %rdx,%rdx
+        halt
+            .pos 0x200
+stack:
+        

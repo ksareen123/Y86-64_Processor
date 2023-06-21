@@ -1,0 +1,39 @@
+                            | 
+0x000:                      | main:   
+0x000: 30f80300000000000000 |         irmovq $3, %r8 # sets r8 to 2; number of loops
+0x00a: 30f90100000000000000 |         irmovq $1, %r9 #sets r9 to 1
+0x014: 30f20200000000000000 |         irmovq $2, %rdx #i #sets rdx to 2
+0x01e: 702700000000000000   |         jmp loop #unconditional jump to the loop section
+                            |          
+0x027:                      | loop:
+0x027: 2026                 |         rrmovq %rdx, %rsi #sets rsi to 2
+0x029: 6026                 |         addq %rdx, %rsi #adds 2 to rsi
+0x02b: 6026                 |         addq %rdx, %rsi #adds 2 to rsi
+0x02d: 6196                 |         subq %r9, %rsi #subtracts rsi by one
+0x02f: 2067                 |         rrmovq %rsi, %rdi #moves the value of rsi into rdi
+0x031: 6096                 |         addq %r9, %rsi #adds to rsi by one
+0x033: 6092                 |         addq %r9, %rdx #adds to rdx by one
+0x035: 6198                 |         subq %r9, %r8 #decrements r8 by one(r8 acts as the loop's index) ; once it hits 0 it will set ZF to 1
+0x037: 742700000000000000   |         jne loop #checks if ZF is zero; if not redo the whole loop if it is move onto the next instruction
+                            |         
+                            |         #rdx is 5, rsi is 12, rdi is 11 when you exit the loop
+                            |         
+0x040: 734900000000000000   |         je  part2 #if ZF is 1, it will jump to part2
+0x049:                      | part2:
+0x049: 30fa0900000000000000 |         irmovq $9, %r10 #sets r10 to 9
+0x053: 30f00500000000000000 |         irmovq $5,%rax #sets rax to 5
+0x05d: 10                   |         nop #pauses the program for a little bit
+0x05e: a00f                 |         pushq %rax #pushes rax(5) onto the stack
+0x060: b0af                 |         popq %r10 #grabs the most recent value(5) off of the stack to store it in r10
+0x062: 716c00000000000000   |         jle part3 #will jump since the ZF is still 1
+0x06b: 00                   |         halt #will stop in case jump condition is not met
+                            |         
+0x06c:                      | part3: 
+0x06c: 10                   |         nop #pauses the program for a little bit
+0x06d: 629a                 |         andq %r9, %r10 # sets r10 to 4
+0x06f: 767900000000000000   |         jg final #jumps 
+0x078: 00                   |         halt
+                            |         
+0x079:                      | final:
+0x079: 10                   |         nop #pauses the program for a little bit
+0x07a: 00                   |         halt

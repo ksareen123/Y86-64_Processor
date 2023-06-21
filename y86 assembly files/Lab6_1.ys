@@ -1,0 +1,44 @@
+    .pos 0
+    irmovq stack,%rsp
+    irmovq stack,%rbp
+main:   
+        xorq %rcx, %rcx
+        irmovq $9, %r8 #constant
+        irmovq $1, %r9
+        irmovq $1, %rdx #i
+        je loop
+        halt
+        
+loop:
+        rrmovq %rdx, %rsi
+        addq %rdx, %rsi
+        addq %rdx, %rsi #multiplcation done
+        subq %r9, %rsi 
+        rrmovq %rsi, %rdi
+        addq %r9, %rsi
+        addq %r9, %rdx
+        subq %r9, %r8
+        jne loop
+        je  loop_l
+loop_l:
+        irmovq $9, %r10
+        irmovq $5,%rax
+        nop
+        pushq %rax
+        popq %r10
+        jle loop_2
+loop_2: 
+        nop
+        andq %r9, %r10
+        jg loop_final
+        
+loop_final:
+        nop
+        halt
+        
+    .pos 0x100
+
+stack:
+
+
+    
